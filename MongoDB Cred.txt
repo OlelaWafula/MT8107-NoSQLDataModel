@@ -1,0 +1,19 @@
+ ✔ Network mt8107-nosqldatamodel_mongodb-network  Created                                                          0.2s
+ ✔ Container mongodb-lab                          Started                                                          1.8s
+ ✔ Container mongo-express                        Started                                                          1.5s
+Waiting for services to start...
+Γ£à MongoDB container is running
+Γ£à Mongo Express container is running
+
+≡ƒÄë Setup complete! Your MongoDB lab environment is ready.
+
+≡ƒôè Access MongoDB Express (Web UI): http://localhost:8081
+   Username: admin
+   Password: password123
+
+≡ƒÆ╗ Connect to MongoDB shell:
+   docker exec -it mongodb-lab mongosh -u admin -p password123
+
+≡ƒôÜ Follow the README.md file for detailed instructions
+
+≡ƒ¢æ To stop the services, run: docker-compose down

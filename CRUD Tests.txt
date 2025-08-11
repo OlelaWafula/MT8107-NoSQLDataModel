@@ -1,0 +1,1005 @@
+ecommerce_db>
+
+ecommerce_db> db.products.find({ tags: "wireless" })
+...
+[
+  {
+    _id: ObjectId('689762daa5cb97683389b03d'),
+    productId: 'PROD001',
+    name: 'Wireless Bluetooth Headphones',
+    brand: 'TechAudio',
+    price: 89.99,
+    category: 'Electronics',
+    inStock: true,
+    specifications: {
+      batteryLife: '20 hours',
+      connectivity: 'Bluetooth 5.0',
+      weight: '250g'
+    },
+    tags: [ 'wireless', 'bluetooth', 'audio' ],
+    createdAt: ISODate('2025-08-09T15:01:46.685Z')
+  },
+  {
+    _id: ObjectId('6897665d07a953f04989b03d'),
+    name: 'Wireless Bluetooth Headphones',
+    brand: 'TechAudio',
+    price: 89.99,
+    category: 'Electronics',
+    inStock: true,
+    specifications: {
+      batteryLife: '20 hours',
+      connectivity: 'Bluetooth 5.0',
+      weight: '250g'
+    },
+    tags: [ 'wireless', 'bluetooth', 'audio' ],
+    createdAt: ISODate('2025-08-09T15:16:45.892Z')
+  }
+]
+ecommerce_db> db.products.findOne({ name: "Wireless Bluetooth Headphones" })
+{
+  _id: ObjectId('689762daa5cb97683389b03d'),
+  productId: 'PROD001',
+  name: 'Wireless Bluetooth Headphones',
+  brand: 'TechAudio',
+  price: 89.99,
+  category: 'Electronics',
+  inStock: true,
+  specifications: {
+    batteryLife: '20 hours',
+    connectivity: 'Bluetooth 5.0',
+    weight: '250g'
+  },
+  tags: [ 'wireless', 'bluetooth', 'audio' ],
+  createdAt: ISODate('2025-08-09T15:01:46.685Z')
+}
+ecommerce_db> db.products.find({}, { name: 1, price: 1, brand: 1, _id: 0 })
+[
+  {
+    name: 'Wireless Bluetooth Headphones',
+    brand: 'TechAudio',
+    price: 89.99
+  },
+  { name: 'Smart Fitness Watch', brand: 'FitTech', price: 199.99 },
+  { name: 'Organic Cotton T-Shirt', brand: 'EcoWear', price: 24.99 },
+  {
+    name: 'Wireless Bluetooth Headphones',
+    brand: 'TechAudio',
+    price: 89.99
+  }
+]
+ecommerce_db> b.products.updateOne(
+...   { name: "Wireless Bluetooth Headphones" },
+...   { $set: { price: 79.99 } }
+... )
+...
+ReferenceError: b is not defined
+ecommerce_db> db.products.updateOne(
+...   { name: "Wireless Bluetooth Headphones" },
+...   { $set: { price: 79.99 } }
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+ecommerce_db> b.products.updateMany(
+...   { category: "Electronics" },
+...   { $set: { category: "Audio Equipment" } }
+... )
+...
+... // Add a new field to all documents
+... db.products.updateMany(
+...   {},
+...   { $set: { lastUpdated: new Date() } }
+... )
+...
+ReferenceError: b is not defined
+ecommerce_db> db.products.updateMany(
+...   { category: "Electronics" },
+...   { $set: { category: "Audio Equipment" } }
+... )
+...
+... // Add a new field to all documents
+... db.products.updateMany(
+...   {},
+...   { $set: { lastUpdated: new Date() } }
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+ecommerce_db> db.products.updateMany(
+...   { category: "Wearables" },
+...   { $mul: { price: 1.1 } }
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+ecommerce_db> // Delete a single document
+... db.products.deleteOne({ name: "Organic Cotton T-Shirt" })
+...
+... // Delete multiple documents
+... db.products.deleteMany({ inStock: false })
+...
+... // Delete all documents in a collection
+... db.products.deleteMany({})
+... ```
+...
+...
+...
+...
+ecommerce_db> db.products.deleteOne({ name: "Organic Cotton T-Shirt" })
+...
+... // Delete multiple documents
+... db.products.deleteMany({ inStock: false })
+...
+... // Delete all documents in a collection
+... db.products.deleteMany({})
+{ acknowledged: true, deletedCount: 3 }
+ecommerce_db> db.products.insertMany([
+...   {
+...     productId: "PROD001",
+...     name: "Gaming Laptop",
+...     brand: "GameTech",
+...     price: 1299.99,
+...     category: "Computers",
+...     subcategory: "Laptops",
+...     inStock: true,
+...     stockQuantity: 15,
+...     specifications: {
+...       processor: "Intel i7-12700H",
+...       ram: "16GB DDR4",
+...       storage: "512GB SSD",
+...       graphics: "RTX 3060",
+...       screenSize: "15.6 inch",
+...       resolution: "1920x1080"
+...     },
+...     variants: [
+...       { color: "Black", price: 1299.99, stock: 10 },
+...       { color: "White", price: 1349.99, stock: 5 }
+...     ],
+...     tags: ["gaming", "laptop", "high-performance"],
+...     ratings: {
+...       average: 4.5,
+...       count: 127
+...     },
+...     createdAt: new Date(),
+...     lastUpdated: new Date()
+...   },
+...   {
+...     productId: "PROD002",
+...     name: "Yoga Mat",
+...     brand: "FitLife",
+...     price: 29.99,
+...     category: "Sports",
+...     subcategory: "Fitness",
+...     inStock: true,
+...     stockQuantity: 50,
+...     specifications: {
+...       material: "TPE",
+...       thickness: "6mm",
+...       dimensions: "183cm x 61cm",
+...       weight: "1.2kg",
+...       grip: "Non-slip"
+...     },
+...     variants: [
+...       { color: "Purple", price: 29.99, stock: 20 },
+...       { color: "Blue", price: 29.99, stock: 15 },
+...       { color: "Green", price: 29.99, stock: 15 }
+...     ],
+...     tags: ["yoga", "fitness", "exercise"],
+...     ratings: {
+...       average: 4.2,
+...       count: 89
+...     },
+...     createdAt: new Date(),
+...     lastUpdated: new Date()
+...   },
+...   {
+...     productId: "PROD003",
+...     name: "Coffee Maker",
+...     brand: "BrewMaster",
+...     price: 89.99,
+...     category: "Home & Kitchen",
+...     subcategory: "Appliances",
+...     inStock: false,
+...     stockQuantity: 0,
+...     specifications: {
+...       capacity: "12 cups",
+...       power: "900W",
+...       features: ["Programmable", "Auto-shutoff", "Pause and serve"],
+...       dimensions: "30cm x 25cm x 35cm"
+...     },
+...     variants: [
+...       { color: "Stainless Steel", price: 89.99, stock: 0 },
+...       { color: "Black", price: 79.99, stock: 0 }
+...     ],
+...     tags: ["coffee", "kitchen", "appliance"],
+...     ratings: {
+...       average: 4.7,
+...       count: 203
+...     },
+...     createdAt: new Date(),
+...     lastUpdated: new Date()
+...   }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68976aa807a953f04989b040'),
+    '1': ObjectId('68976aa807a953f04989b041'),
+    '2': ObjectId('68976aa807a953f04989b042')
+  }
+}
+ecommerce_db> db.products.find({ "ratings.average": { $gte: 4.5 } })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db>
+
+ecommerce_db> db.products.find({ 
+...   price: { $gte: 50, $lte: 200 } 
+... })db.products.find({ 
+...   price: { $gte: 50, $lte: 200 }
+... })
+Uncaught:
+SyntaxError: Missing semicolon. (3:2)
+
+  1 | db.products.find({
+  2 |   price: { $gte: 50, $lte: 200 }
+> 3 | })db.products.find({
+    |   ^
+  4 |   price: { $gte: 50, $lte: 200 }
+  5 | })
+  6 |
+
+ecommerce_db> db.products.find({ 
+...   price: { $gte: 50, $lte: 200 } 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   "specifications.ram": "16GB DDR4" 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   tags: { $all: ["gaming", "high-performance"] } 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   stockQuantity: { $gt: 0 } 
+... })
+...
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b041'),
+    productId: 'PROD002',
+    name: 'Yoga Mat',
+    brand: 'FitLife',
+    price: 29.99,
+    category: 'Sports',
+    subcategory: 'Fitness',
+    inStock: true,
+    stockQuantity: 50,
+    specifications: {
+      material: 'TPE',
+      thickness: '6mm',
+      dimensions: '183cm x 61cm',
+      weight: '1.2kg',
+      grip: 'Non-slip'
+    },
+    variants: [
+      { color: 'Purple', price: 29.99, stock: 20 },
+      { color: 'Blue', price: 29.99, stock: 15 },
+      { color: 'Green', price: 29.99, stock: 15 }
+    ],
+    tags: [ 'yoga', 'fitness', 'exercise' ],
+    ratings: { average: 4.2, count: 89 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   brand: "GameTech", 
+...   category: "Computers" 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.aggregate([
+...   { $group: {
+...     _id: "$category",
+...     avgPrice: { $avg: "$price" },
+...     count: { $sum: 1 }
+...   }},
+...   { $sort: { avgPrice: -1 } }
+... ])
+[
+  { _id: 'Computers', avgPrice: 1299.99, count: 1 },
+  { _id: 'Home & Kitchen', avgPrice: 89.99, count: 1 },
+  { _id: 'Sports', avgPrice: 29.99, count: 1 }
+]
+ecommerce_db> db.products.aggregate([
+...   { $match: { "ratings.count": { $gte: 50 } } },
+...   { $sort: { "ratings.average": -1 } },
+...   { $limit: 5 },
+...   { $project: {
+...     name: 1,
+...     brand: 1,
+...     "ratings.average": 1, 
+...     "ratings.count": 1
+...   }}
+... ])
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    ratings: { average: 4.7, count: 203 }
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    ratings: { average: 4.5, count: 127 }
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b041'),
+    name: 'Yoga Mat',
+    brand: 'FitLife',
+    ratings: { average: 4.2, count: 89 }
+  }
+]
+ecommerce_db> db.products.aggregate([
+...   { $group: { 
+...     _id: "$category", 
+...     totalStock: { $sum: "$stockQuantity" },
+...     avgStock: { $avg: "$stockQuantity" },
+...     productCount: { $sum: 1 }
+...   }},
+...   { $sort: { totalStock: -1 } }
+... ])
+[
+  { _id: 'Sports', totalStock: 50, avgStock: 50, productCount: 1 },
+  { _id: 'Computers', totalStock: 15, avgStock: 15, productCount: 1 },
+  {
+    _id: 'Home & Kitchen',
+    totalStock: 0,
+    avgStock: 0,
+    productCount: 1
+  }
+]
+ecommerce_db> db.products.createIndex({ 
+...   name: "text",
+...   tags: "text" 
+... })
+name_text_tags_text
+ecommerce_db> db.products.find({ 
+...   $text: { $search: "gaming" } 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find(
+...   { $text: { $search: "fitness exercise" } },
+...   { score: { $meta: "textScore" } }
+... ).sort({ score: { $meta: "textScore" } })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b041'),
+    productId: 'PROD002',
+    name: 'Yoga Mat',
+    brand: 'FitLife',
+    price: 29.99,
+    category: 'Sports',
+    subcategory: 'Fitness',
+    inStock: true,
+    stockQuantity: 50,
+    specifications: {
+      material: 'TPE',
+      thickness: '6mm',
+      dimensions: '183cm x 61cm',
+      weight: '1.2kg',
+      grip: 'Non-slip'
+    },
+    variants: [
+      { color: 'Purple', price: 29.99, stock: 20 },
+      { color: 'Blue', price: 29.99, stock: 15 },
+      { color: 'Green', price: 29.99, stock: 15 }
+    ],
+    tags: [ 'yoga', 'fitness', 'exercise' ],
+    ratings: { average: 4.2, count: 89 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z'),
+    score: 2
+  }
+]
+ecommerce_db> db.products.find({ 
+...   "variants.color": "Black"
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   "variants.1": { $exists: true } 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1349.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b041'),
+    productId: 'PROD002',
+    name: 'Yoga Mat',
+    brand: 'FitLife',
+    price: 29.99,
+    category: 'Sports',
+    subcategory: 'Fitness',
+    inStock: true,
+    stockQuantity: 50,
+    specifications: {
+      material: 'TPE',
+      thickness: '6mm',
+      dimensions: '183cm x 61cm',
+      weight: '1.2kg',
+      grip: 'Non-slip'
+    },
+    variants: [
+      { color: 'Purple', price: 29.99, stock: 20 },
+      { color: 'Blue', price: 29.99, stock: 15 },
+      { color: 'Green', price: 29.99, stock: 15 }
+    ],
+    tags: [ 'yoga', 'fitness', 'exercise' ],
+    ratings: { average: 4.2, count: 89 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.updateOne(
+...   { productId: "PROD001", "variants.color": "White" },
+...   { $set: { "variants.$.price": 1399.99 } }
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+ecommerce_db> db.products.find({ 
+...   "specifications.screenSize": "15.6 inch" 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1399.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   "specifications.capacity": { $exists: true } 
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   "specifications.capacity": { $exists: true }
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> db.products.find({ 
+...   lastUpdated: { 
+...     $gte: new Date(new Date().setHours(0, 0, 0, 0))
+...   }
+... })
+[
+  {
+    _id: ObjectId('68976aa807a953f04989b040'),
+    productId: 'PROD001',
+    name: 'Gaming Laptop',
+    brand: 'GameTech',
+    price: 1299.99,
+    category: 'Computers',
+    subcategory: 'Laptops',
+    inStock: true,
+    stockQuantity: 15,
+    specifications: {
+      processor: 'Intel i7-12700H',
+      ram: '16GB DDR4',
+      storage: '512GB SSD',
+      graphics: 'RTX 3060',
+      screenSize: '15.6 inch',
+      resolution: '1920x1080'
+    },
+    variants: [
+      { color: 'Black', price: 1299.99, stock: 10 },
+      { color: 'White', price: 1399.99, stock: 5 }
+    ],
+    tags: [ 'gaming', 'laptop', 'high-performance' ],
+    ratings: { average: 4.5, count: 127 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b041'),
+    productId: 'PROD002',
+    name: 'Yoga Mat',
+    brand: 'FitLife',
+    price: 29.99,
+    category: 'Sports',
+    subcategory: 'Fitness',
+    inStock: true,
+    stockQuantity: 50,
+    specifications: {
+      material: 'TPE',
+      thickness: '6mm',
+      dimensions: '183cm x 61cm',
+      weight: '1.2kg',
+      grip: 'Non-slip'
+    },
+    variants: [
+      { color: 'Purple', price: 29.99, stock: 20 },
+      { color: 'Blue', price: 29.99, stock: 15 },
+      { color: 'Green', price: 29.99, stock: 15 }
+    ],
+    tags: [ 'yoga', 'fitness', 'exercise' ],
+    ratings: { average: 4.2, count: 89 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  },
+  {
+    _id: ObjectId('68976aa807a953f04989b042'),
+    productId: 'PROD003',
+    name: 'Coffee Maker',
+    brand: 'BrewMaster',
+    price: 89.99,
+    category: 'Home & Kitchen',
+    subcategory: 'Appliances',
+    inStock: false,
+    stockQuantity: 0,
+    specifications: {
+      capacity: '12 cups',
+      power: '900W',
+      features: [ 'Programmable', 'Auto-shutoff', 'Pause and serve' ],
+      dimensions: '30cm x 25cm x 35cm'
+    },
+    variants: [
+      { color: 'Stainless Steel', price: 89.99, stock: 0 },
+      { color: 'Black', price: 79.99, stock: 0 }
+    ],
+    tags: [ 'coffee', 'kitchen', 'appliance' ],
+    ratings: { average: 4.7, count: 203 },
+    createdAt: ISODate('2025-08-09T15:35:04.358Z'),
+    lastUpdated: ISODate('2025-08-09T15:35:04.358Z')
+  }
+]
+ecommerce_db> docker-compose down
+Uncaught:
+SyntaxError: Missing semicolon. (1:14)
+
+> 1 | docker-compose down
+    |               ^
+  2 |
+
+ecommerce_db> exit
+
+marti@AGLPT-01 MINGW64 /c/Strathmore/MT8107-NoSQLDataModel
+$ docker-compose down
+time="2025-08-09T19:33:11+03:00" level=warning msg="C:\\Strathmore\\MT8107-NoSQLDataModel\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+[+] Running 3/3
+ ✔ Container mongo-express                        Removed                                                                               1.3s 
+ ✔ Container mongodb-lab                          Removed                                                                               1.4s 
+ ✔ Network mt8107-nosqldatamodel_mongodb-network  Removed                                                                               0.9s 
+
+marti@AGLPT-01 MINGW64 /c/Strathmore/MT8107-NoSQLDataModel
+$ docker-compose down -v
+rm -rf data/
+time="2025-08-09T19:33:28+03:00" level=warning msg="C:\\Strathmore\\MT8107-NoSQLDataModel\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+
+marti@AGLPT-01 MINGW64 /c/Strathmore/MT8107-NoSQLDataModel
+$ docker ps
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED       STATUS      PORTS                               
+                                                                                                      NAMES
+c44b5c37cd96   customized-ubuntu:1.0                  "bash"                   3 days ago    Up 3 days   22/tcp, 2181/tcp, 8030-8033/tcp, 8080/tcp, 8088/tcp, 8443/tcp, 9000/tcp, 9870/tcp, 16010/tcp                                              hadoop-slave-2
+e47017ee47b5   customized-ubuntu:1.0                  "bash"                   3 days ago    Up 3 days   22/tcp, 2181/tcp, 8030-8033/tcp, 8080/tcp, 8088/tcp, 8443/tcp, 9000/tcp, 9870/tcp, 16010/tcp                                              hadoop-slave-1
+0639326a3970   customized-ubuntu:1.0                  "bash"                   3 days ago    Up 3 days   22/tcp, 2181/tcp, 8030-8033/tcp, 8080/tcp, 8443/tcp, 0.0.0.0:8088->8088/tcp, 0.0.0.0:9870->9870/tcp, 9000/tcp, 0.0.0.0:16010->16010/tcp   hadoop-master
+8924f2e46b86   customized-ubuntu:1.0                  "bash"                   3 days ago    Up 3 days   22/tcp, 8030-8033/tcp, 8080/tcp, 8088/tcp, 8443/tcp, 9000/tcp, 9870/tcp, 16010/tcp, 0.0.0.0:2181->2181/tcp                                zookeeper
+2e726490dfd7   customized-apache-httpd-plus-php:1.0   "docker-php-entrypoi…"   7 weeks ago   Up 3 days   0.0.0.0:8002->80/tcp                
+                                                                                                      apache-2.4-php-8.2
+c75ef4dc30d2   customized-mysql:1.0                   "docker-entrypoint.s…"   7 weeks ago   Up 3 days   33060/tcp, 0.0.0.0:3307->3306/tcp                                                                                                         mysql-8.0.40-debian
+31995b625dbc   postgres:17.2                          "docker-entrypoint.s…"   7 weeks ago   Up 3 days   0.0.0.0:5433->5432/tcp              
+                                                                                                      postgres-17.2
+
+marti@AGLPT-01 MINGW64 /c/Strathmore/MT8107-NoSQLDataModel
+$
